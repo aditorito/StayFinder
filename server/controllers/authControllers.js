@@ -3,7 +3,7 @@ const Users = require("../models/Users");
 const { signupBody, signinBody } = require("../validators/auth.Schema")
 const JWT_SECRET = process.env.JWT_SECRET;
 
-exports.signup = async (req, res) => {
+exports.register = async (req, res) => {
     try {
         const payload = req.body;
         const { success } = signupBody.safeParse(payload)
@@ -48,7 +48,7 @@ exports.signup = async (req, res) => {
     }
 }
 
-exports.signin = async (req, res) => {
+exports.login = async (req, res) => {
     try {
         const payload = req.body;
         const { success } = signinBody.safeParse(payload);
