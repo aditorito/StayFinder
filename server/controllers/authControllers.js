@@ -29,6 +29,10 @@ exports.register = async (req, res) => {
             role: payload.role
         })
         const userId = user._id;
+        let isHost = false;
+        if (user.role == 'host') {
+            isHost = true;
+        }
         const token = jwt.sign({
             userId
         }, JWT_SECRET)
@@ -36,7 +40,8 @@ exports.register = async (req, res) => {
         res.status(200).json({
             token: token,
             message: "User is created",
-            isauthorized: true
+            isauthorized: true,
+            isHost
         })
     } catch (error) {
         console.log(error);
@@ -69,15 +74,20 @@ exports.login = async (req, res) => {
                 isauthorized: false
             })
         }
+        let isHost = false;
+        if (existingUser.role == 'host') {
+            isHost = true;
+        }
 
         const userId = existingUser._id;
         const token = jwt.sign({
             userId
         }, JWT_SECRET);
-        
+
         res.status(200).json({
-            token:token,
-            isauthorized:true
+            token: token,
+            isauthorized: true,
+            isHost:isHost
         })
 
     } catch (error) {
