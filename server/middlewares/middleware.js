@@ -1,6 +1,10 @@
 const jwt = require("jsonwebtoken");
+const dotenv = require('dotenv');
+dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET;
 
+
+console.log(JWT_SECRET);
 
 const authMiddleware = (req, res, next) => {
     try {
@@ -26,5 +30,3 @@ const authMiddleware = (req, res, next) => {
 
     }
 }
-
-exports
