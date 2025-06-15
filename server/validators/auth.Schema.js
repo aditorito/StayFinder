@@ -7,6 +7,12 @@ const signupBody = z.object({
     role:z.string().optional()
 })
 
+const signinBody = z.object({
+    email:z.string().email(),
+    password:z.string().min(6)
+})
+
 module.exports = {
-    signupBody:signupBody
+    signupBody:signupBody,
+    signinBody:signinBody
 }
