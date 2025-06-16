@@ -3,6 +3,7 @@ const listingRouter = express.Router();
 const authMiddleware = require('../middlewares/middleware')
 const listingController = require('../controllers/listingControllers')
 
-listingRouter.get('/', authMiddleware, listingController.getlisting)
+listingRouter.post('/', authMiddleware, listingController.listingProperty);
+listingRouter.get('/',authMiddleware,listingController.getlistedProperty);
 
 module.exports  = listingRouter;
