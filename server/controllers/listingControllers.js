@@ -1,5 +1,5 @@
 const { listingBody } = require("../validators/listing.Schema");
-const Listing = require("../models/Listing");
+const Listing = require("../models/Listings");
 
 
 exports.listingProperty = async (req, res) => {

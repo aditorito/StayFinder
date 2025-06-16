@@ -9,7 +9,7 @@ const bookingRouter = require('./bookingRoutes');
 
 router.use('/users',authRouter);
 router.use('/listings',listingRouter);
-router.use('/booking',bookingRouter);
+router.use('/bookings',bookingRouter);
 
 
 module.exports = router;

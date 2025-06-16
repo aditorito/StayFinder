@@ -1,19 +1,19 @@
-const { Children } = require('react');
 const z = require('zod');
 
 const guestSchema = z.object({
-    adult:z.string(),
-    Children:z.string().optional(),
-    infants:z.string().optional()
+    adults:z.number().min(1,"At least one adult is required"),
+    Childrens:z.number().optional(),
+    infants:z.number().optional()
 });
 
 const bookingBody = z.object({
     userId: z.string(),
     listingId: z.string(),
     checkIn:z.string(),
+    checkOut:z.string(),
     guests:guestSchema,
-    totalPrice:z.number(),
-    status:z.string()
+    totalPrice:z.number().positive(),
+    status: z.enum(["pending", "confirmed", "cancelled"])
 });
 
 module.exports = {

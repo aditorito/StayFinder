@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const Users = require("../models/Users");
 const { signupBody, signinBody } = require("../validators/auth.Schema");
-const Listings = require("../models/Listing");
+const Listings = require("../models/Listings");
 const JWT_SECRET = process.env.JWT_SECRET;
 
 exports.register = async (req, res) => {

@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const guestSchema = new mongoose.Schema({
-    adult: {
+    adults: {
         type: Number
     },
-    children: {
+    childrens: {
         type: Number
     },
     infants: {
@@ -25,6 +25,10 @@ const bookingSchema = new mongoose.Schema({
     checkIn: {
         type: Date,
         required: true
+    },
+    checkOut:{
+        type:Date,
+        required:true
     },
     guests: guestSchema,
     totalPrice: {
