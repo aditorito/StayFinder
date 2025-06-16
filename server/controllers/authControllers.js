@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const Users = require("../models/Users");
-const { signupBody, signinBody } = require("../validators/auth.Schema")
+const { signupBody, signinBody } = require("../validators/auth.Schema");
+const Listings = require("../models/Listing");
 const JWT_SECRET = process.env.JWT_SECRET;
 
 exports.register = async (req, res) => {
@@ -87,7 +88,7 @@ exports.login = async (req, res) => {
         res.status(200).json({
             token: token,
             isauthorized: true,
-            isHost:isHost
+            isHost: isHost
         })
 
     } catch (error) {
@@ -96,6 +97,37 @@ exports.login = async (req, res) => {
             message: "Somthing is wrong on the server side",
             isauthorized: false
         })
+
+    }
+}
+
+exports.getUserdetails = async (req, res) => {
+    try {
+        const id = req.userId;
+        const user = await Users.findById(id);
+        let listedProperty;
+        if (user.role == 'host') {
+            listedProperty = await Listings.find({
+                hostId:id                
+            })            
+        }
+        const response = {
+            message:"Fetched user details",
+            data: user
+        }
+        if (listedProperty) {
+            response.listedProperty = listedProperty            
+        }
+
+        res.status(200).json(response)
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Somthing is wrong on the server side",
+            isauthorized: false
+        })
+
 
     }
 }
