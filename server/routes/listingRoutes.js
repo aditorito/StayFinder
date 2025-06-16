@@ -5,5 +5,6 @@ const listingController = require('../controllers/listingControllers')
 
 listingRouter.post('/', authMiddleware, listingController.listingProperty);
 listingRouter.get('/',authMiddleware,listingController.getlistedProperty);
+listingRouter.get('/:id', authMiddleware, listingController)
 
 module.exports  = listingRouter;

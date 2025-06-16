@@ -8,21 +8,21 @@ exports.listingProperty = async (req, res) => {
         const { success } = listingBody.safeParse(payload);
         if (!success) {
             return res.status(400).json({
-                message:"Input is invalid"
+                message: "Input is invalid"
             })
-            
+
         }
         await Listing.create({
-            title:payload.title,
-            description:payload.description,
-            location:payload.location,
-            pricePerNight:payload.pricePerNight,
-            images:payload.images,
-            hostId:payload.hostId,
-            availability:payload.availability
+            title: payload.title,
+            description: payload.description,
+            location: payload.location,
+            pricePerNight: payload.pricePerNight,
+            images: payload.images,
+            hostId: payload.hostId,
+            availability: payload.availability
         });
         res.status(200).json({
-            message:"Property listed"
+            message: "Property listed"
         })
 
     } catch (error) {
@@ -34,6 +34,28 @@ exports.listingProperty = async (req, res) => {
     }
 }
 
-exports.getlistedProperty = async (req,res) => {
-    
+exports.getlistedProperty = async (req, res) => {
+    try {
+        const listedProperty = await Listing.find({});
+        
+        res.status(200).json({
+            message: "Listing fetched",
+            data: listedProperty
+        })
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Somthing is wrong on the server side"
+        })
+
+    }
+}
+
+exports.getSpecificProperty = async (req, res) => {
+    try {
+        
+    } catch (error) {
+        
+    }
 }
