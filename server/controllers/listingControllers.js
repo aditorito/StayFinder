@@ -37,7 +37,7 @@ exports.listingProperty = async (req, res) => {
 exports.getlistedProperty = async (req, res) => {
     try {
         const listedProperty = await Listing.find({});
-        
+
         res.status(200).json({
             message: "Listing fetched",
             data: listedProperty
@@ -54,8 +54,26 @@ exports.getlistedProperty = async (req, res) => {
 
 exports.getSpecificProperty = async (req, res) => {
     try {
-        
+        const id = req.params.id;
+        const Property = await Listing.findById(id);
+
+        if (!Property) {
+            return res.status(404).json({
+                message: "Property doesn't exist!!",
+                isauthorized: false
+            })
+        }
+
+        res.status(200).json({
+            message:"Property found",
+            data:Property
+        })
+
     } catch (error) {
-        
+        console.log(error);
+        res.status(500).json({
+            message: "Somthing is wrong on the server side"
+        })
+
     }
 }
