@@ -40,10 +40,10 @@ const listingSchema = new mongoose.Schema({
         ref:'Users',
         required:true
     },
-    availability:{
+    availability:[{
         from:Date,
         to:Date
-    }
+    }]
 });
 
 const Listings = mongoose.model('Listings', listingSchema);
