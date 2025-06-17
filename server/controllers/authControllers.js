@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const Users = require("../models/Users");
 const { signupBody, signinBody } = require("../validators/auth.Schema");
 const Listings = require("../models/Listings");
+const Bookings = require("../models/Bookings");
 const JWT_SECRET = process.env.JWT_SECRET;
 
 exports.register = async (req, res) => {
@@ -114,6 +115,10 @@ exports.getUserdetails = async (req, res) => {
         const response = {
             message:"Fetched user details",
             data: user
+        }
+        const bookings = await Bookings.findById(id);
+        if (bookings) {
+            response.bookings = bookings            
         }
         if (listedProperty) {
             response.listedProperty = listedProperty            
