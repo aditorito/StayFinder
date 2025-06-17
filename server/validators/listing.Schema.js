@@ -18,7 +18,7 @@ const listingBody = z.object({
     pricePerNight:z.number(),
     images:z.array(z.string().url()),
     hostId:z.string(),
-    availability:availabilitySchema
+    availability:z.array(availabilitySchema)
 });
 
 module.exports = {
