@@ -58,6 +58,7 @@ exports.booking = async (req, res) => {
                             from: block.from,
                             to: new Date(checkInTime - oneDay)
                         };
+                        
 
                         const secondBlock = {
                             from: new Date(checkOutTime + oneDay),
