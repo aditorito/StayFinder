@@ -1,8 +1,10 @@
 import React, { useState, useMemo } from 'react';
+import { useRecoilState } from 'recoil';
+import { checkInAtom, checkOutAtom } from '../store/atoms/Booking';
 
 const AvailabilityDatePicker = ({ availability = [], onDateChange }) => {
-  const [checkIn, setCheckIn] = useState('');
-  const [checkOut, setCheckOut] = useState('');
+  const [checkIn, setCheckIn] = useRecoilState(checkInAtom);
+  const [checkOut, setCheckOut] = useRecoilState(checkOutAtom);
 
   // Convert availability periods to date ranges and find available periods
   const { availableDates, availablePeriods, minDate, maxDate } = useMemo(() => {
@@ -203,26 +205,6 @@ const AvailabilityDatePicker = ({ availability = [], onDateChange }) => {
           </p>
         </div>
       )}
-
-      {/* Demo section with sample data */}
-      <div className="mt-8 p-4 bg-blue-50 rounded-lg">
-        <h3 className="text-lg font-semibold text-blue-800 mb-2">Demo Usage</h3>
-        <p className="text-sm text-blue-700 mb-2">This component is currently using sample availability data:</p>
-        <pre className="text-xs bg-white p-2 rounded border overflow-auto">
-{JSON.stringify([
-  {
-    "from": "2025-07-01T00:00:00.000Z",
-    "to": "2025-07-28T00:00:00.000Z",
-    "_id": "685156ce260135437c26e9a9"
-  },
-  {
-    "from": "2025-08-01T00:00:00.000Z", 
-    "to": "2025-08-15T00:00:00.000Z",
-    "_id": "685156ce260135437c26e9aa"
-  }
-], null, 2)}
-        </pre>
-      </div>
     </div>
   );
 };
