@@ -1,11 +1,15 @@
 const { bookingBody } = require("../validators/booking.Schema");
 const Bookings = require("../models/Bookings");
 const Listings = require("../models/Listings");
+const cloudinary = require('../config.js/cloudinary');
+const fs = require('fs');
 
 
 exports.booking = async (req, res) => {
     try {
         const payload = req.body;
+        console.log(payload);
+        
         const { success } = bookingBody.safeParse(payload);
         if (!success) {
             return res.status(400).json({
@@ -19,7 +23,6 @@ exports.booking = async (req, res) => {
             checkIn: payload.checkIn,
             checkOut: payload.checkOut,
             guests: payload.guests,
-            totalPrice: payload.guests,
             totalPrice: payload.totalPrice,
             status: payload.status
         });
@@ -30,7 +33,7 @@ exports.booking = async (req, res) => {
         const checkIn = booking.checkIn;
         const checkOut = booking.checkOut;
         const updateAvailabliltyBlock = (availabiltyBlocks, checkIn, checkOut) => {
-            
+
             const newBlocks = [];
 
             for (let block of availabiltyBlocks) {
@@ -58,17 +61,17 @@ exports.booking = async (req, res) => {
                             from: block.from,
                             to: new Date(checkInTime - oneDay)
                         };
-                        
+
 
                         const secondBlock = {
                             from: new Date(checkOutTime + oneDay),
-                            to:block.to
+                            to: block.to
                         };
                         newBlocks.push(firstBlock, secondBlock);
 
                     }
 
-                }else{
+                } else {
                     newBlocks.push(block);
                 }
 
@@ -93,6 +96,22 @@ exports.booking = async (req, res) => {
             message: "Somthing is wrong on the server side",
             isauthorized: false
         })
+
+    }
+}
+
+exports.upload = async (req, res) => {
+    try {
+        const result = await cloudinary.uploader.upload(req.file.path);
+        fs.unlinkSync(req.file.path);
+
+        res.json({
+            imageUrl: result.secure_url
+        })
+
+    } catch (error) {
+        console.error(err);
+        res.status(500).json({ message: 'Upload failed' });
 
     }
 }
