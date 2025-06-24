@@ -2,7 +2,7 @@ const z = require('zod');
 
 const guestSchema = z.object({
     adults:z.number().min(1,"At least one adult is required"),
-    Childrens:z.number().optional(),
+    children:z.number().optional(),
     infants:z.number().optional()
 });
 
@@ -11,7 +11,7 @@ const bookingBody = z.object({
     listingId: z.string(),
     checkIn:z.string(),
     checkOut:z.string(),
-    guests:guestSchema,
+    guest:guestSchema,
     totalPrice:z.number().positive(),
     status: z.enum(["pending", "confirmed", "cancelled"])
 });
