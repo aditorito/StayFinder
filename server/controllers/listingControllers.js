@@ -6,6 +6,7 @@ exports.listingProperty = async (req, res) => {
     try {
         const payload = req.body;
         const { success } = listingBody.safeParse(payload);
+                
         if (!success) {
             return res.status(400).json({
                 message: "Input is invalid"
