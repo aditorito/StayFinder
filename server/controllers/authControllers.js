@@ -116,7 +116,11 @@ exports.getUserdetails = async (req, res) => {
             message:"Fetched user details",
             data: user
         }
-        const bookings = await Bookings.findById(id);
+        const bookings = await Bookings.find({
+            userId:id
+        });
+        console.log(bookings);
+        
         if (bookings) {
             response.bookings = bookings            
         }
