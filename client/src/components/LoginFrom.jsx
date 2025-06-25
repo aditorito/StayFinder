@@ -92,12 +92,13 @@ export const LoginForm = () => {
 
         <button
           onClick={async () => {
+            console.log(backendUrl);
             const responsce = await axios.post(`${backendUrl}/users/login`, {
               email: email,
               password: password
             });
             console.log(responsce);
-            
+    
             if (responsce.data.isauthorized) {
               localStorage.setItem("token", responsce.data.token)
 
