@@ -1,31 +1,28 @@
 import { Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom"
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { emailAtom, isHostAtom, isLoggedInAtom, nameAtom, passwordAtom, roleAtom } from '../store/atoms/Auth';
+import axios from 'axios';
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 
 export const RegisterForm = () => {
     const navigate = useNavigate();
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: '',
-        role: 'guest'
-    });
+
+    const setIsLoggedIn = useSetRecoilState(isLoggedInAtom);
+
+    const setisHost = useSetRecoilState(isHostAtom);
+    const [name, setName] = useRecoilState(nameAtom);
+    const [email, setEmail] = useRecoilState(emailAtom);
+    const [password, setPassword] = useRecoilState(passwordAtom);
+    const [role, setRole] = useRecoilState(roleAtom);
+
+
+
 
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
-    };
-
-    const handleSubmit = async () => {
-        setIsLoading(true);
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        setIsLoading(false);
-        console.log('Register attempted with:', formData);
-        alert('Registered! (Demo)');
-    };
 
     return (
         <div>
@@ -40,8 +37,10 @@ export const RegisterForm = () => {
                     <input
                         type="text"
                         name="name"
-                        value={formData.name}
-                        onChange={handleChange}
+
+                        onChange={(e) => {
+                            setName(e.target.value);
+                        }}
                         placeholder="Enter your name"
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none"
                     />
@@ -52,8 +51,10 @@ export const RegisterForm = () => {
                     <input
                         type="email"
                         name="email"
-                        value={formData.email}
-                        onChange={handleChange}
+
+                        onChange={(e) => {
+                            setEmail(e.target.value);
+                        }}
                         placeholder="Enter your email"
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none"
                     />
@@ -65,8 +66,9 @@ export const RegisterForm = () => {
                         <input
                             type={showPassword ? 'text' : 'password'}
                             name="password"
-                            value={formData.password}
-                            onChange={handleChange}
+                            onChange={(e) => {
+                                setPassword(e.target.value);
+                            }}
                             placeholder="Create a password"
                             className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-rose-500 outline-none"
                         />
@@ -83,23 +85,23 @@ export const RegisterForm = () => {
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Choose your role</label>
                     <div className="grid grid-cols-2 gap-4">
-                        {['guest', 'host'].map((role) => {
-                            const isSelected = formData.role === role;
+                        {['guest', 'host'].map((option) => {
+                            const isSelected = role === option;
                             return (
                                 <div
-                                    key={role}
-                                    onClick={() => setFormData(prev => ({ ...prev, role }))}
+                                    key={option}
+                                    onClick={() => { setRole(option) }}
                                     className={`cursor-pointer border rounded-lg p-4 flex flex-col items-center text-center transition-all ${isSelected
                                         ? 'border-rose-500 bg-rose-50 shadow-md'
                                         : 'border-gray-300 hover:border-rose-400'
                                         }`}
                                 >
                                     <div className="text-2xl mb-2">
-                                        {role === 'guest' ? '🧳' : '🏠'}
+                                        {option === 'guest' ? '🧳' : '🏠'}
                                     </div>
-                                    <div className="font-semibold capitalize">{role}</div>
+                                    <div className="font-semibold capitalize">{option}</div>
                                     <div className="text-xs text-gray-500 mt-1">
-                                        {role === 'guest'
+                                        {option === 'guest'
                                             ? 'Book a stay with ease'
                                             : 'List your property and earn'}
                                     </div>
@@ -111,8 +113,30 @@ export const RegisterForm = () => {
 
 
                 <button
-                    onClick={handleSubmit}
                     disabled={isLoading}
+                    onClick={async () => {
+                        const response = await axios.post(`${backendUrl}/users/register`, {
+                            name: name,
+                            email: email,
+                            password: password,
+                            role: role
+                        });
+
+                        if (response.data.isauthorized) {
+                            localStorage.setItem("token", response.data.token);
+                            setisHost(response.data.isHost);
+                            setIsLoggedIn(true);
+                            navigate('/profile');
+
+
+                        } else {
+                            alert('Somthing is up try later')
+                        }
+
+
+
+
+                    }}
                     className="w-full bg-rose-500 hover:bg-rose-600 text-white py-3 px-4 rounded-lg font-medium transition duration-200 disabled:opacity-50"
                 >
                     {isLoading ? (
@@ -162,7 +186,7 @@ export const RegisterForm = () => {
                 <div className="text-center pt-6 border-t border-gray-200">
                     <p className="text-gray-600">
                         Already have an account?{' '}
-                        <a href="/login" className="text-rose-600 hover:text-rose-500 font-medium" onClick={()=>{
+                        <a href="/login" className="text-rose-600 hover:text-rose-500 font-medium" onClick={() => {
                             navigate('/login')
                         }}>
                             Log In
