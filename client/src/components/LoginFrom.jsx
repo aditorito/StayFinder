@@ -96,6 +96,8 @@ export const LoginForm = () => {
               email: email,
               password: password
             });
+            console.log(responsce);
+            
             if (responsce.data.isauthorized) {
               localStorage.setItem("token", responsce.data.token)
 
