@@ -320,25 +320,6 @@ export const PropertyDetails = ({ propertyId }) => {
                 </div>
               </div>
 
-              {/* Host Info */}
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h2 className="text-xl font-semibold text-gray-800 mb-4">Meet your host</h2>
-                <div className="flex items-center">
-                  <img
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
-                    alt="Host"
-                    className="w-16 h-16 rounded-full object-cover mr-4"
-                  />
-                  <div>
-                    <h3 className="font-semibold text-gray-800">Rajesh Kumar</h3>
-                    <p className="text-gray-600">Host since 2020</p>
-                    <div className="flex items-center mt-1">
-                      <span className="text-yellow-500">★</span>
-                      <span className="ml-1 text-sm text-gray-600">4.9 • 150+ reviews</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
 
             {/* Booking Card */}
