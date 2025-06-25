@@ -24,3 +24,8 @@ export const passwordAtom = atom({
     key:"passwodAtom",
     default:''
 })
+
+export const isHostAtom = atom({
+    key:"isHostAtom",
+    default:false
+})
