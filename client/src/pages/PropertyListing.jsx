@@ -22,6 +22,7 @@ export const PropertyListing = () => {
   const [pricePerNight, setpricePerNight] = useRecoilState(pricePerNightAtom);
   const [image, setImage] = useRecoilState(imagesAtom);
   const [availability, setAvailability] = useRecoilState(availabilityAtom);
+  
 
   // Add local state for address
   const [address, setAddress] = useState('');
@@ -80,6 +81,7 @@ export const PropertyListing = () => {
     });
 
     if (response) {
+      setImage([]);
       navigate('/home');
 
     }
