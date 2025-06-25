@@ -4,6 +4,7 @@ import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import { imagesAtom } from "../store/atoms/Register";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 export const ImageUploader = () => {
     const [images, setImages] = useRecoilState(imagesAtom);
@@ -17,7 +18,7 @@ export const ImageUploader = () => {
             try {
                 const yourToken = localStorage.getItem('token')
                 const res = await axios.post(
-                    "http://localhost:5000/api/v1/bookings/upload",
+                    `${backendUrl}/bookings/upload`,
                     formData,
                     {
                         headers: {
