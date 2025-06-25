@@ -70,6 +70,15 @@ exports.login = async (req, res) => {
             email: payload.email
         });
 
+        if (existingUser.password !== payload.password) {
+            return res.status(401).json({
+                message: "Incorrect password",
+                isauthorized: false
+
+            });
+        }
+
+
         if (!existingUser) {
             return res.status(404).json({
                 message: "User doesn't exist!!",
@@ -109,23 +118,23 @@ exports.getUserdetails = async (req, res) => {
         let listedProperty;
         if (user.role == 'host') {
             listedProperty = await Listings.find({
-                hostId:id                
-            })            
+                hostId: id
+            })
         }
         const response = {
-            message:"Fetched user details",
+            message: "Fetched user details",
             data: user
         }
         const bookings = await Bookings.find({
-            userId:id
+            userId: id
         });
         console.log(bookings);
-        
+
         if (bookings) {
-            response.bookings = bookings            
+            response.bookings = bookings
         }
         if (listedProperty) {
-            response.listedProperty = listedProperty            
+            response.listedProperty = listedProperty
         }
 
         res.status(200).json(response)
