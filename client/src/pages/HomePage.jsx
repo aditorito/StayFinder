@@ -13,12 +13,11 @@ export const HomePage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
-    const isHost = useRecoilValue(isHostAtom);
 
     useEffect(() => {
-        // Simulate API call
-        console.log(isHost);
-        
+        // Simulate API call  
+        console.log(backendUrl);
+              
         const fetchProperties = async () => {
             console.log();
             
