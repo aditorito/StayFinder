@@ -1,19 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { RecoilRoot } from 'recoil'
+import { HomePage } from './pages/HomePage'
+import { Login } from './pages/Login'
+import { Register } from './pages/Register'
+import { PropertyDetails } from './pages/PropertyDetails'
+import { Profile } from './pages/Profile'
+import { PropertyListing } from './pages/PropertyListing'
+import Payment from './pages/Payment'
+import { PrivateRoute } from './components/PrivateRoute'; // 👈 import it
+
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Button
-      </button>
+    <RecoilRoot>
+      <BrowserRouter>
+        <Routes>
 
-      </div>
-    </>
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+
+
+          <Route path='/profile' element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+
+          } />
+          <Route path='/' element={<HomePage />} />
+          <Route path='/listing/:id' element={<PropertyDetails />} />
+          <Route path='/newproperty' element={<PropertyListing />} />
+
+          <Route path='/payment' element={<Payment />} />
+        </Routes>
+      </BrowserRouter>
+
+    </RecoilRoot>
   )
 }
 
