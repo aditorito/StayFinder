@@ -15,6 +15,11 @@ connectDB();
 
 
 app.use("/api/v1/", rootRouter);
+app.use("/", (req, res)=>{
+    res.json({
+        message:"Testing website"
+    })
+})
 
 
 app.listen(PORT, ()=>{
