@@ -80,7 +80,7 @@ export const PropertyListing = () => {
     });
 
     if (response) {
-      navigate('/');
+      navigate('/home');
 
     }
 

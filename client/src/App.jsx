@@ -18,7 +18,7 @@ function App() {
       <BrowserRouter>
         <Routes>
 
-          <Route path='/login' element={<Login />} />
+          <Route path='/' element={<Login />} />
           <Route path='/register' element={<Register />} />
 
 
@@ -28,7 +28,7 @@ function App() {
             </PrivateRoute>
 
           } />
-          <Route path='/' element={<HomePage />} />
+          <Route path='/home' element={<HomePage />} />
           <Route path='/listing/:id' element={<PropertyDetails />} />
           <Route path='/newproperty' element={<PropertyListing />} />
 

@@ -101,7 +101,7 @@ export const LoginForm = () => {
 
               setisHost(responsce.data.isHost);
               setIsLoggedIn(true);
-              navigate('/')
+              navigate('/home')
 
             } else {
               alert('Could not login ')

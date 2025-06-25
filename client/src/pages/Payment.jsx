@@ -315,7 +315,7 @@ const PaymentSuccess = ({ method, totalPrice, transactionId }) => {
         </div>
       </div>
       <button onClick={() => {
-        navigate('/')
+        navigate('/home')
       }} className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
         Continue Booking
       </button>
