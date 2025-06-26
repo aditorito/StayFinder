@@ -92,7 +92,7 @@ CLOUDINARY_API_SECRET=your_api_secret
 
 node server.js
 
-```bash
+```
 
 
 ### Frontend Setup
