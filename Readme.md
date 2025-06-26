@@ -67,6 +67,8 @@ cd stayfinder
 cd backend
 npm install
 
+---
+
 ➕ Environment Variables
 
 Create a .env file inside /backend with the following:
