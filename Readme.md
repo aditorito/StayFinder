@@ -67,8 +67,6 @@ cd stayfinder
 cd backend
 npm install
 
----
-
 ➕ Environment Variables
 
 Create a .env file inside /backend with the following:
@@ -93,6 +91,9 @@ CLOUDINARY_API_SECRET=your_api_secret
 
 
 node server.js
+
+```bash
+
 
 ### Frontend Setup
 
