@@ -97,9 +97,12 @@ node server.js
 
 ### Frontend Setup
 
+```bash 
 cd frontend
 npm install
 npm run dev
+
+```
 
 
 🤝 Looking to Collaborate
