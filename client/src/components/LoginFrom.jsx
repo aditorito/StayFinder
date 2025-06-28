@@ -90,6 +90,21 @@ export const LoginForm = () => {
           </button>
         </div>
 
+         <div className="text-center pt-6 border-t border-gray-200">
+          <p className="text-gray-600">
+            Don't have an account?{' '}
+            <button
+              onClick={() => {
+                navigate('/register')
+              }}
+              type="button"
+              className="text-rose-600 hover:text-rose-500 font-medium transition-colors"
+            >
+              Register here
+            </button>
+          </p>
+        </div>
+
         <button
           onClick={async () => {
             console.log(backendUrl);
@@ -160,20 +175,7 @@ export const LoginForm = () => {
           </button>
         </div>
 
-        <div className="text-center pt-6 border-t border-gray-200">
-          <p className="text-gray-600">
-            Don't have an account?{' '}
-            <button
-              onClick={() => {
-                navigate('/register')
-              }}
-              type="button"
-              className="text-rose-600 hover:text-rose-500 font-medium transition-colors"
-            >
-              Register here
-            </button>
-          </p>
-        </div>
+       
       </div>
     </div>
   );
